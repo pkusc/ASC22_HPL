@@ -330,6 +330,6 @@ else
     START_CPU=32
 fi
 
-END_CPU=$(( ${START_CPU} + ${CPU_CORES_PER_RANK} ))
+END_CPU=$(( ${START_CPU} + ${CPU_CORES_PER_RANK} - 1 ))
 
-numactl --cpunodebind=${CPU} --phycpubind=${START_CPU}-${END_CPU} ${MEMBIND} ${XHPL} ${DAT}
+numactl --cpunodebind=${CPU} --physcpubind=${START_CPU}-${END_CPU} ${MEMBIND} ${XHPL} ${DAT}
