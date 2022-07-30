@@ -1,0 +1,22 @@
+===============================================================================
+ HPL-AI-NVIDIA 2.0.0 -- High-Performance Mixed Precision benchmark -- NVIDIA
+===============================================================================
+
+ HPL-AI-NVIDIA is a software package that solves a (random) dense linear system
+ in mixed precision arithmetic using Tensor Cores on distributed-memory computers
+ equipped with NVIDIA GPUs, based on the netlib HPL benchmark.
+
+ The HPL-AI-NVIDIA software package is provided in a self-contained NVIDIA 
+ HPL-Benchmarks NGC container collection with all dependencies provided.
+
+ Runing  See the file RUNNING in this directory.
+ ------
+
+ Tuning  See the file TUNING in this directory.
+ ------
+
+ Check out the website NGC Catalog 
+ (https://www.nvidia.com/en-us/gpu-cloud/containers/) for the
+ latest information. Look for HPC-Benchmarks collection.
+
+===============================================================================

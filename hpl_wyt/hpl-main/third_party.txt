@@ -1,0 +1,21 @@
+The software listed below is provided under the terms of the 
+specified open source software licenses.
+
+To obtain source code for software provided under licenses 
+that require redistribution of source code, including the 
+GNU General Public License (GPL) and GNU Lesser General 
+Public License (LGPL), contact oss-requests@nvidia.com.  
+This offer is valid for a period of three (3) years from the 
+date of the distribution of this product by NVIDIA CORPORATION.
+
+Component	          License
+gdrcopy                   MIT (https://github.com/NVIDIA/gdrcopy/blob/2.1/LICENSE)
+Intel MKL                 Intel End User License Agreement for Developer Tools (https://software.intel.com/content/dam/develop/external/us/en/documents/pdf/intel-developer-tools-eula-09-03-19.pdf)
+knem                      BSD (https://gitlab.inria.fr/knem/knem/-/blob/knem-1.1.4/COPYING)
+libgfortran               GPLv3 with GCC Runtime Library Exception (/usr/share/doc/libgfortran3/copyright)
+libgomp                   GPLv3 with GCC Runtime Library Exception (/usr/share/doc/libgomp1/copyright)
+MLNX_OFED                 Mellanox OFED (MLNX_OFED) Software End-User Agreement (https://www.mellanox.com/page/mlnx_ofed_eula)
+OpenMPI                   BSD (https://github.com/open-mpi/ompi/blob/v4.0.5/LICENSE)
+PMI2                      BSD (https://github.com/SchedMD/slurm/blob/master/contribs/pmi2/COPYRIGHT)
+PMI-X                     BSD (https://github.com/openpmix/openpmix/blob/master/LICENSE)
+UCX                       BSD (https://github.com/openucx/ucx/blob/v1.9.0/LICENSE)

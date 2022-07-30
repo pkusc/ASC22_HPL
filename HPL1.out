@@ -1,0 +1,166 @@
+/opt/cuda-11.6/lib64/:/opt/intel/oneapi/mkl/2022.0.1/lib/intel64/:/opt/openmpi/lib/:/opt/openmpi/lib:/opt/openmpi/lib
+/opt/cuda-11.6/lib64/:/opt/intel/oneapi/mkl/2022.0.1/lib/intel64/:/opt/openmpi/lib/:/opt/openmpi/lib:/opt/openmpi/lib:
+/opt/cuda-11.6/lib64/:/opt/intel/oneapi/mkl/2022.0.1/lib/intel64/:/opt/openmpi/lib/:/opt/openmpi/lib:/opt/openmpi/lib
+/opt/cuda-11.6/lib64/:/opt/intel/oneapi/mkl/2022.0.1/lib/intel64/:/opt/openmpi/lib/:/opt/openmpi/lib:/opt/openmpi/lib:
+INFO: host=node2 rank=0 lrank=0 cores=16 gpu=0 cpu=0 mem= net= bin=./hpl-linux-x86_64/xhpl
+numactl --physcpubind=0 ./hpl-linux-x86_64/xhpl 4xA100_double.dat
+INFO: host=node1 rank=2 lrank=0 cores=16 gpu=0 cpu=0 mem= net= bin=./hpl-linux-x86_64/xhpl
+numactl --physcpubind=0 ./hpl-linux-x86_64/xhpl 4xA100_double.dat
+INFO: host=node1 rank=3 lrank=1 cores=16 gpu=1 cpu=1 mem= net= bin=./hpl-linux-x86_64/xhpl
+numactl --physcpubind=1 ./hpl-linux-x86_64/xhpl 4xA100_double.dat
+INFO: host=node2 rank=1 lrank=1 cores=16 gpu=1 cpu=1 mem= net= bin=./hpl-linux-x86_64/xhpl
+numactl --physcpubind=1 ./hpl-linux-x86_64/xhpl 4xA100_double.dat
+
+================================================================================
+HPL-NVIDIA 1.0.0  -- NVIDIA accelerated HPL benchmark -- NVIDIA
+================================================================================
+HPLinpack 2.1  --  High-Performance Linpack benchmark  --   October 26, 2012
+Written by A. Petitet and R. Clint Whaley,  Innovative Computing Laboratory, UTK
+Modified by Piotr Luszczek, Innovative Computing Laboratory, UTK
+Modified by Julien Langou, University of Colorado Denver
+================================================================================
+
+An explanation of the input/output parameters follows:
+T/V    : Wall time / encoded variant.
+N      : The order of the coefficient matrix A.
+NB     : The partitioning blocking factor.
+P      : The number of process rows.
+Q      : The number of process columns.
+Time   : Time in seconds to solve the linear system.
+Gflops : Rate of execution for solving the linear system.
+
+The following parameter values will be used:
+
+N      :  120960 
+NB     :     288 
+PMAP   : Row-major process mapping
+P      :       2 
+Q      :       2 
+PFACT  :    Left 
+NBMIN  :       2 
+NDIV   :       2 
+RFACT  :    Left 
+BCAST  :  2ringM 
+DEPTH  :       1 
+SWAP   : Spread-roll (long)
+L1     : no-transposed form
+U      : transposed form
+EQUIL  : no
+ALIGN  : 8 double precision words
+
+--------------------------------------------------------------------------------
+
+- The matrix A is randomly generated for each test.
+- The following scaled residual check will be computed:
+      ||Ax-b||_oo / ( eps * ( || x ||_oo * || A ||_oo + || b ||_oo ) * N )
+- The relative machine precision (eps) is taken to be               1.110223e-16
+- Computational tests pass if scaled residuals are less than                16.0
+
+trsm_cutoff from environment variable 9000000 
+gpu_dgemm_split from environment variable 1.000 
+monitor_gpu from environment variable 1 
+gpu_temp_warning from environment variable 78 
+gpu_clock_warning from environment variable 1410 
+gpu_power_warning from environment variable 400 
+max_h2d_ms from environment variable 200 
+max_d2h_ms from environment variable 200 
+gpu_pcie_gen_warning from environment variable 3 
+gpu_pcie_width_warning from environment variable 2 
+test_loops from environment variable 1 
+test_system from environment variable 1 
+
+	******** TESTING SYSTEM PARAMETERS ********
+	PARAM 	[UNITS] 	MIN 	MAX 	AVG 
+	----- 	------- 	--- 	--- 	--- 
+CPU : 
+	CPU_BW	[GB/s ] 	10.4 	11.0 	10.8 
+	CPU_FP	[GFLPS] 
+	     	NB =   32 	  18 	  24 	  19 
+	     	NB =   64 	  26 	  30 	  29 
+	     	NB =  128 	  43 	  50 	  45 
+	     	NB =  256 	  52 	  56 	  54 
+	     	NB =  512 	  56 	  60 	  58 
+PCIE (NVLINK on IBM) : 
+	H2D_BW	[GB/s ] 	11.3 	11.4 	11.4 
+	D2H_BW	[GB/s ] 	12.3 	12.3 	12.3 
+	BID_BW	[GB/s ] 	19.8 	19.8 	19.8 
+CPU_BW concurrent with BID_BW : 
+	CPU_BW	[GB/s ] 	5.9 	5.9 	5.9 
+	BID_BW	[GB/s ] 	22.6 	22.6 	22.6 
+GPU : 
+	GPU_BW	[GB/s ] 	1302 	1306 	1304 
+	GPU_FP	[GFLPS] 
+	     	NB =  128 	14392 	14594 	14509 
+	     	NB =  256 	17667 	17932 	17789 
+	     	NB =  384 	16968 	17489 	17223 
+	     	NB =  512 	16460 	17219 	16829 
+	     	NB =  640 	14749 	15526 	15187 
+	     	NB =  768 	13886 	14690 	14332 
+	     	NB =  896 	13691 	14801 	14203 
+	     	NB = 1024 	13717 	14318 	14051 
+NET : 
+	PROC COL NET_BW	[MB/s ] 
+		     8 B  	  15 	  15 	  15 
+		    64 B  	  91 	  92 	  92 
+		   512 B  	 465 	 466 	 466 
+		     4 KB 	2080 	2086 	2083 
+		    32 KB 	6328 	6353 	6341 
+		   256 KB 	9179 	9266 	9223 
+		  2048 KB 	11147 	11148 	11147 
+		 16384 KB 	10858 	10865 	10861 
+	NET_LAT	[ us  ] 	1.9 	2.0 	1.9 
+
+	PROC ROW NET_BW	[MB/s ] 
+		     8 B  	  69 	  70 	  69 
+		    64 B  	 367 	 391 	 379 
+		   512 B  	1763 	1776 	1770 
+		     4 KB 	5869 	5890 	5880 
+		    32 KB 	10120 	10161 	10142 
+		   256 KB 	22532 	22771 	22651 
+		  2048 KB 	11735 	11860 	11797 
+		 16384 KB 	11421 	11616 	11518 
+	NET_LAT	[ us  ] 	0.4 	0.4 	0.4 
+
+displaying Prog:%complete, N:columns, Time:seconds
+iGF:instantaneous GF, GF:avg GF, GF_per: process GF
+
+
+Per-Process Host Memory Estimate: 29.54 GB (MAX) 29.54 GB (MIN)
+
+PCOL: 0 GPU_COLS: 60481 CPU_COLS: 0 
+PCOL: 1 GPU_COLS: 60481 CPU_COLS: 0 
+!!!! WARNING: Rank: 3 : node1 : GPU 0000:af:00.0 	[0;31mClock: 765 MHz [0m	Temp: 49 C 	Power: 95 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 2 : node1 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 53 C 	Power: 41 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 1 : node2 : GPU 0000:af:00.0 	[0;31mClock: 1110 MHz [0m	Temp: 46 C 	Power: 280 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 0 : node2 : GPU 0000:3b:00.0 	[0;31mClock: 1095 MHz [0m	Temp: 46 C 	Power: 345 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 2 : node1 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 53 C 	Power: 40 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 0 : node2 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 41 C 	Power: 34 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 3 : node1 : GPU 0000:af:00.0 	[0;31mClock: 765 MHz [0m	Temp: 49 C 	Power: 38 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 1 : node2 : GPU 0000:af:00.0 	[0;31mClock: 765 MHz [0m	Temp: 43 C 	Power: 169 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 3 : node1 : GPU 0000:af:00.0 	[0;31mClock: 765 MHz [0m	Temp: 48 C 	Power: 39 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 1 : node2 : GPU 0000:af:00.0 	[0;31mClock: 1395 MHz [0m	Temp: 46 C 	Power: 72 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 2 : node1 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 54 C 	Power: 129 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 0 : node2 : GPU 0000:3b:00.0 	[0;31mClock: 1275 MHz [0m	Temp: 45 C 	Power: 102 W 	PCIe  gen 3 	 x16 
+[0;31m Prog= 2.13%	N_left= 120096	Time= 56.06	Time_left= 2578.88	iGF=   447.78	GF=   447.78	iGF_per= 111.94 	GF_per= 111.94 [0m
+!!!! WARNING: Rank: 2 : node1 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 53 C 	Power: 40 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 0 : node2 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 43 C 	Power: 164 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 3 : node1 : GPU 0000:af:00.0 	[0;31mClock: 765 MHz [0m	Temp: 47 C 	Power: 109 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 1 : node2 : GPU 0000:af:00.0 	[0;31mClock: 765 MHz [0m	Temp: 42 C 	Power: 155 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 1 : node2 : GPU 0000:af:00.0 	[0;31mClock: 1125 MHz [0m	Temp: 46 C 	Power: 61 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 3 : node1 : GPU 0000:af:00.0 	[0;31mClock: 765 MHz [0m	Temp: 47 C 	Power: 150 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 0 : node2 : GPU 0000:3b:00.0 	[0;31mClock: 1230 MHz [0m	Temp: 46 C 	Power: 160 W 	PCIe  gen 3 	 x16 
+[0;31m Prog= 3.53%	N_left= 119520	Time= 84.60	Time_left= 2312.59	iGF=   579.43	GF=   492.19	iGF_per= 144.86 	GF_per= 123.05 [0m
+!!!! WARNING: Rank: 2 : node1 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 53 C 	Power: 94 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 0 : node2 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 43 C 	Power: 39 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 2 : node1 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 52 C 	Power: 54 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 3 : node1 : GPU 0000:af:00.0 	[0;31mClock: 765 MHz [0m	Temp: 46 C 	Power: 141 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 1 : node2 : GPU 0000:af:00.0 	[0;31mClock: 765 MHz [0m	Temp: 42 C 	Power: 56 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 1 : node2 : GPU 0000:af:00.0 	[0;31mClock: 1140 MHz [0m	Temp: 44 C 	Power: 62 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 3 : node1 : GPU 0000:af:00.0 	[0;31mClock: 765 MHz [0m	Temp: 46 C 	Power: 142 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 2 : node1 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 51 C 	Power: 134 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 0 : node2 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 42 C 	Power: 156 W 	PCIe  gen 3 	 x16 
+[0;31m Prog= 4.92%	N_left= 118944	Time= 113.36	Time_left= 2192.00	iGF=   569.47	GF=   511.80	iGF_per= 142.37 	GF_per= 127.95 [0m
+!!!! WARNING: Rank: 2 : node1 : GPU 0000:3b:00.0 	[0;31mClock: 765 MHz [0m	Temp: 50 C 	Power: 66 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 3 : node1 : GPU 0000:af:00.0 	[0;31mClock: 765 MHz [0m	Temp: 45 C 	Power: 37 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 0 : node2 : GPU 0000:3b:00.0 	[0;31mClock: 975 MHz [0m	Temp: 44 C 	Power: 157 W 	PCIe  gen 3 	 x16 
+!!!! WARNING: Rank: 1 : node2 : GPU 0000:af:00.0 	[0;31mClock: 1320 MHz [0m	Temp: 43 C 	Power: 71 W 	PCIe  gen 3 	 x16 

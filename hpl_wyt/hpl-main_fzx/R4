@@ -1,0 +1,4 @@
+INFO: host=node2 rank=0 lrank=0 cores=4 gpu=0 cpu=0 ucx= bin=/home/jokerwyt/hpl-main/hpl-main/hpl-linux-x86_64/xhpl
+INFO: host=node2 rank=1 lrank=1 cores=4 gpu=1 cpu=1 ucx= bin=/home/jokerwyt/hpl-main/hpl-main/hpl-linux-x86_64/xhpl
+INFO: host=node1 rank=2 lrank=0 cores=4 gpu=0 cpu=0 ucx= bin=/home/jokerwyt/hpl-main/hpl-main/hpl-linux-x86_64/xhpl
+INFO: host=node1 rank=3 lrank=1 cores=4 gpu=1 cpu=1 ucx= bin=/home/jokerwyt/hpl-main/hpl-main/hpl-linux-x86_64/xhpl

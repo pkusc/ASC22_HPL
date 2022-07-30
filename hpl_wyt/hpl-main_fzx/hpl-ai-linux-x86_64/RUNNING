@@ -1,0 +1,123 @@
+##############################################################################
+## Running the HPL-AI-NVIDIA Benchmark
+The HPL-AI-NVIDIA benchmark uses the same input format as the standard Netlib  
+HPL benchmark. Please see the Netlib HPL benchmark for getting started with the
+HPL software concepts and best practices.
+
+The HPL-AI-NVIDIA expects one GPU per MPI process. As such, set the number of MPI 
+processes to match the number of available GPUs in the cluster.
+
+The script hpl.sh can be invoked on a command line or  through  a  slurm  batch-
+script to launch the HPL-AI-NVIDIA benchmark. The script hpl.sh accepts the 
+following parameters:
+
+--cpu-affinity <string>         colon separated list of cpu (ranges of) indices.
+--cpu-cores-per-rank <num>      number of threads per rank.
+--dat                           path to HPL.dat.
+--gpu-affinity <string>         colon separated list of gpu indices.
+--mem-affinity <string>         colon separated list of memory indices.
+--ucx-affinity <string>         colon separated list of UCX devices.
+--xhpl-ai                       use the HPL-AI-NVIDIA benchmark
+
+alternatively, --cpu-affinity, --cpu-cores-per-rank, and --gpu-affinity can  be 
+replaced by:
+
+--config name of config with preset options ('dgx-a100'), or path  to  a  shell 
+file containing above params.
+
+It is recommended to setup the --cpu-cores-per-rank in a way such that (number of 
+MPI processes per node)*(--cpu-cores-per-rank) does not exceed the number of  cpu 
+cores.
+
+The next sections provide command line examples for HPL-AI-NVIDIA benchmark.
+
+For a general guide on pulling and running containers, see "Pulling A Container 
+image and Running A Container" in the NGC Container User Guide.
+
+##############################################################################
+## Running with Pyxis/Enroot
+The examples below use Pyxis/enroot from NVIDIA to facilitate running HPL-
+Benchmarks NGC containers.
+
+To copy and customize the sample slurm scripts and/or sample HPL.dat files from 
+the containers, run the container in interactive mode, while mounting a folder 
+outside the container, and copy the needed files, as follows:
+
+    CONT='nvcr.io/nvidia/hpc-benchmarks:20.10-hpl'
+    MOUNT="$PWD:/home_pwd"
+
+    srun -N 1 \
+        --container-image="${CONT}" \
+        --container-mounts="${MOUNT}" \
+        --pty bash
+
+Once inside the container, copy the needed files to /home_pwd.
+
+Several sample slurm scripts, and several sample HPL.dat files,  are  available 
+in the container at /workspace/hpl-ai-linux-x86_64.
+
+To run HPL-AI-NVIDIA on a single DGX-A100 node, using provided  sample  HPL.dat 
+files:
+
+     CONT='nvcr.io/nvidia/hpc-benchmarks:20.10-hpl'
+
+     srun -N 1 --ntasks-per-node=8 \
+          --container-image="${CONT}" \
+          hpl.sh --xhpl-ai --config dgx-a100 \
+          --dat /workspace/hpl-ai-linux-x86_64/sample-dat/HPL-dgx-a100-1N.dat
+
+To run HPL-AI-NVIDIA on a 4 node cluster, each node with 4  A100  GPUs,  using 
+your custom HPL.dat file:
+
+     CONT='nvcr.io/nvidia/hpc-benchmarks:20.10-hpl'
+     MOUNT="/path/to/your/custom/dat-files:/my-dat-files"
+
+     srun -N 4 --ntasks-per-node=4 \
+          --container-image="${CONT}" \
+          --container-mounts="${MOUNT}" \
+          hpl.sh --xhpl-ai --cpu-affinity 0:0:1:1 --cpu-cores-per-rank 4 \
+          --gpu-affinity 0:1:2:3 --dat /my-dat-files/HPL.dat
+
+Pay special attention to CPU cores affinity/binding, as it highly affects  the 
+performance of the HPL benchmarks.
+
+##############################################################################
+## Running with Sigularity
+The instructions below assume Singularity 3.4.1 or later.
+
+Pull the image
+Save the HPL-AI-NVIDIA NGC container as a local Singularity image file:
+
+     $ singularity build hpc-benchmarks:20.10-hpl.sif \
+          docker://nvcr.io/nvidia/hpc-benchmarks:20.10-hpl
+
+This command saves the container in the current directory as 
+hpc-benchmarks:20.10-hpl.sif.
+
+Several sample slurm scripts, and several sample HPL.dat files,  are  available
+in the container at /workspace/hpl-ai-linux-x86_64.
+
+To run HPL-AI-NVIDIA on a single DGX-A100 node, using provided  sample  HPL.dat 
+files:
+
+     CONT='/path/to/hpc-benchmarks:20.10-hpl.sif'
+
+     srun -N 1 --ntasks-per-node=8  singularity run --nv \
+          "${CONT}" \
+          hpl.sh --xhpl-ai --config dgx-a100 \
+          --dat /workspace/hpl-ai-linux-x86_64/sample-dat/HPL-dgx-a100-1N.dat
+
+To run HPL-AI-NVIDIA on a 4 node cluster, each node with 4 A100 GPUs, using your 
+custom HPL.dat file:
+
+     CONT='/path/to/hpc-benchmarks:20.10-hpl.sif'
+     MOUNT="/path/to/your/custom/dat-files:/my-dat-files"
+
+     srun -N 4 --ntasks-per-node=4 singularity run --nv \
+          -B "${MOUNT}" "${CONT}" \
+          hpl.sh --xhpl-ai --cpu-affinity 0:0:1:1 --cpu-cores-per-rank 4 \
+          --gpu-affinity 0:1:2:3 --dat /my-dat-files/HPL.dat
+
+Pay special attention to CPU cores affinity/binding, as it highly affects the 
+performance of the HPL benchmarks.
+

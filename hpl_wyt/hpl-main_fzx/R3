@@ -1,0 +1,63 @@
+INFO: host=node2 rank=0 lrank=0 cores=4 gpu=0 cpu=0 ucx= bin=/home/jokerwyt/hpl-main/hpl-main/hpl-linux-x86_64/xhpl
+INFO: host=node2 rank=1 lrank=1 cores=4 gpu=0 cpu=0 ucx= bin=/home/jokerwyt/hpl-main/hpl-main/hpl-linux-x86_64/xhpl
+INFO: host=node2 rank=2 lrank=2 cores=4 gpu=1 cpu=1 ucx= bin=/home/jokerwyt/hpl-main/hpl-main/hpl-linux-x86_64/xhpl
+INFO: host=node2 rank=3 lrank=3 cores=4 gpu=1 cpu=1 ucx= bin=/home/jokerwyt/hpl-main/hpl-main/hpl-linux-x86_64/xhpl
+
+================================================================================
+HPL-NVIDIA 1.0.0  -- NVIDIA accelerated HPL benchmark -- NVIDIA
+================================================================================
+HPLinpack 2.1  --  High-Performance Linpack benchmark  --   October 26, 2012
+Written by A. Petitet and R. Clint Whaley,  Innovative Computing Laboratory, UTK
+Modified by Piotr Luszczek, Innovative Computing Laboratory, UTK
+Modified by Julien Langou, University of Colorado Denver
+================================================================================
+
+An explanation of the input/output parameters follows:
+T/V    : Wall time / encoded variant.
+N      : The order of the coefficient matrix A.
+NB     : The partitioning blocking factor.
+P      : The number of process rows.
+Q      : The number of process columns.
+Time   : Time in seconds to solve the linear system.
+Gflops : Rate of execution for solving the linear system.
+
+The following parameter values will be used:
+
+N      :  142336   141312   139264   137216   135168   133120   129024   124928 
+          120832 
+NB     :     320      352 
+PMAP   : Row-major process mapping
+P      :       2 
+Q      :       2 
+PFACT  :    Left    Crout    Right 
+NBMIN  :       2        8 
+NDIV   :       2 
+RFACT  :    Left    Crout    Right 
+BCAST  :   1ring   1ringM    2ring   2ringM    Blong   BlongM 
+DEPTH  :       1        0 
+SWAP   : Spread-roll (long)
+L1     : no-transposed form
+U      : transposed form
+EQUIL  : no
+ALIGN  : 8 double precision words
+
+--------------------------------------------------------------------------------
+
+- The matrix A is randomly generated for each test.
+- The following scaled residual check will be computed:
+      ||Ax-b||_oo / ( eps * ( || x ||_oo * || A ||_oo + || b ||_oo ) * N )
+- The relative machine precision (eps) is taken to be               1.110223e-16
+- Computational tests pass if scaled residuals are less than                16.0
+
+trsm_cutoff from environment variable 9000000 
+gpu_dgemm_split from environment variable 1.000 
+monitor_gpu from environment variable 1 
+gpu_temp_warning from environment variable 78 
+gpu_clock_warning from environment variable 1410 
+gpu_power_warning from environment variable 400 
+max_h2d_ms from environment variable 200 
+max_d2h_ms from environment variable 200 
+gpu_pcie_gen_warning from environment variable 3 
+gpu_pcie_width_warning from environment variable 2 
+test_loops from environment variable 1 
+test_system from environment variable 1 

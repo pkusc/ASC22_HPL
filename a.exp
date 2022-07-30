@@ -1,0 +1,7 @@
+#!/bin/expect
+
+system ./run.sh
+
+expect {
+	-re 
+}
